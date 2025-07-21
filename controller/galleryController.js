@@ -6,14 +6,13 @@ const db = require("../config/db");
 const GalleryController = {
   getGallery: async (req, res) => {
     const _id = req.params.id;
-    const { page, limit, character, place, is_active } = req.query;
+    const { page, limit, character, place } = req.query;
 
     try {
-      let obj = {};
+      let obj = { is_active: true };
       const offset = (parseInt(page) - 1) * parseInt(limit);
       if (character) obj.character = character;
       if (place) obj.place = place;
-      if (is_active) obj.is_active = is_active;
 
       if (page && limit) {
         const length = await Gallery.count({ where: obj });
